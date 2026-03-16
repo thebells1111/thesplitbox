@@ -4,7 +4,7 @@
   import webhook from "./webhook-test";
   async function sendPostRequest() {
     try {
-      const response = await fetch(`${remoteServer}/webhook-async`, {
+      const response = await fetch(`${remoteServer}/pay/webhook`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import mongoStore from "../../stores/mongo/store.js";
+import store from "../../stores/inMemoryStore.js";
 
 //routes
 import invoice from "./routes/invoice.js";
@@ -9,7 +9,7 @@ import saveSettings from "./routes/saveSettings.js";
 import fetchSettings from "./routes/fetchSettings.js";
 import lnurlp from "./routes/lnurlp.js";
 
-const storeMetadata = mongoStore;
+const storeMetadata = store;
 const router = express.Router();
 const corsOptions = { origin: "*" };
 

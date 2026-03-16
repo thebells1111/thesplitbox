@@ -18,14 +18,14 @@
         metadata: tlv,
       };
       let res = await fetch(
-        `${remoteServer}/invoice?address=${recipient.lnaddress}`,
+        `${remoteServer}/pay/invoice?address=${recipient.lnaddress}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const data = await res.json();
