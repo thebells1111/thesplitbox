@@ -3,14 +3,20 @@ import express from "express";
 const router = express.Router();
 
 router.get("/lnurlp/:name", (req, res) => {
-  const { name } = req.params; // Extract the dynamic part from the route
+  const { name } = req.params;
+  
+  // Dynamically get the protocol (http or https) and the host
+  const protocol = req.protocol;
+  const host = req.get('host');
+  const domain = `${protocol}://${host}`;
 
   res.json({
     status: "OK",
     tag: "payRequest",
     commentAllowed: 255,
-    callback: `https://thesplitbox.com/lnurlp/${name}/callback`, // Use the dynamic name
-    metadata: `[["text/identifier","${name}@thesplitbox.com"],["text/plain","${name}"]]`,
+    // Dynamically inject the current domain into the callback
+    callback: `${domain}/pay/${name}/callback`, 
+    metadata: `[["text/identifier","${name}@${host}"],["text/plain","${name}"]]`,
     minSendable: 1000,
     maxSendable: 10000000000,
     payerData: {

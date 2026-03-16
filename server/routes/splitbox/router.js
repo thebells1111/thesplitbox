@@ -4,11 +4,9 @@ import mongoStore from "../../stores/mongo/store.js";
 
 //routes
 import invoice from "./routes/invoice.js";
-import webhookSync from "./routes/webhookSync.js";
 import webhookAsync from "./routes/webhookAsync.js";
 import saveSettings from "./routes/saveSettings.js";
 import fetchSettings from "./routes/fetchSettings.js";
-import getById from "./routes/getById.js";
 import lnurlp from "./routes/lnurlp.js";
 
 const storeMetadata = mongoStore;
@@ -25,13 +23,10 @@ router.post("/invoice", cors(corsOptions), (req, res) =>
   handle(invoice, req, res)
 );
 
-router.options("/webhook-sync", cors(corsOptions)); // Preflight
-router.post("/webhook-sync", cors(corsOptions), (req, res) =>
-  handle(webhookSync, req, res)
-);
 
-router.options("/webhook-async", cors(corsOptions)); // Preflight
-router.post("/webhook-async", cors(corsOptions), (req, res) =>
+
+router.options("/webhook", cors(corsOptions)); // Preflight
+router.post("/webhook", cors(corsOptions), (req, res) =>
   handle(webhookAsync, req, res)
 );
 

@@ -5,10 +5,10 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import cors from "cors"; // Import the CORS package
 
-import albyRoutes from "./routes/alby/albyRoutes.js";
+// import albyRoutes from "./routes/alby/albyRoutes.js";
 import splitBoxRouter from "./routes/splitbox/router.js";
 import wellknownRoutes from "./routes/wellknown/wellknownRoutes.js";
-import prismRoutes from "./routes/prism/router.js";
+// import prismRoutes from "./routes/prism/router.js";
 
 const PORT = 3000; // Server port
 const app = express();
@@ -50,14 +50,14 @@ app.use(
 );
 
 let tempTokens = {};
-if (process.env.ALBY_JWT) {
-  app.use("/alby", albyRoutes(tempTokens));
-}
+// if (process.env.ALBY_JWT) {
+//   app.use("/alby", albyRoutes(tempTokens));
+// }
 
 app.use("/.well-known", cors({ origin: "*" }), wellknownRoutes);
 
-app.use("/", splitBoxRouter);
-app.use("/prism", prismRoutes);
+app.use("/pay", splitBoxRouter);
+// app.use("/prism", prismRoutes);
 
 // Start the server
 app.listen(PORT, () => {
