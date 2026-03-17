@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import Login from "./Login.svelte"; // Assuming you create a login component
+  import Login from "./Login.svelte";
+  import Dashboard from "./Dashboard.svelte";
   import { remoteServer } from "$lib/state.svelte.js";
   let isAuthenticated = false;
   let isLoading = true;
@@ -34,12 +35,9 @@
 {#if isLoading}
   <p>Checking authentication...</p>
 {:else if !isAuthenticated}
-  <Login {remoteServer} on:success={handleLoginSuccess} />
+  <Login on:success={handleLoginSuccess} />
 {:else}
-  <main>
-    <h1>Welcome to the Admin Dashboard</h1>
-    <p>Your JWT is valid and you are authorized.</p>
-  </main>
+  <Dashboard />
 {/if}
 
 <style>

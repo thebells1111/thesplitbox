@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 const CRED_PATH = path.join(process.cwd(), "credentials.json");
 
-const getStore = () => {
+export const getStore = () => {
   if (!fs.existsSync(CRED_PATH)) {
     const store = {
       jwtSecret: crypto.randomBytes(32).toString("hex"),
@@ -45,8 +45,9 @@ export const login = async (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // false in dev
+  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", 
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })
     .json({ success: true });
 };

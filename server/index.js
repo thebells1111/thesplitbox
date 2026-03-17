@@ -7,8 +7,9 @@ import cors from "cors"; // Import the CORS package
 
 // import albyRoutes from "./routes/alby/albyRoutes.js";
 import payRouter from "./routes/pay/router.js";
-import authRouter from "./routes/auth/router.js";
-import adminRouter from "./routes/admin/router.js";
+import authRouter from "./routes/admin/auth/authRouter.js";
+import adminRouter from "./routes/admin/adminRouter.js";
+import eventsRouter from "./routes/admin/events/eventsRouter.js"
 import wellknownRoutes from "./routes/wellknown/wellknownRoutes.js";
 // import prismRoutes from "./routes/prism/router.js";
 
@@ -51,17 +52,16 @@ app.use(
   }),
 );
 
-let tempTokens = {};
-// if (process.env.ALBY_JWT) {
-//   app.use("/alby", albyRoutes(tempTokens));
-// }
+
 
 app.use("/.well-known", cors({ origin: "*" }), wellknownRoutes);
 
 app.use("/pay", payRouter);
+app.use("/admin/auth", authRouter);
+app.use("/admin/events", eventsRouter);
+app.use("/admin", adminRouter); 
 
-app.use("/auth", authRouter);
-app.use("/admin", adminRouter); // Protected (User management)
+
 
 // Start the server
 app.listen(PORT, () => {

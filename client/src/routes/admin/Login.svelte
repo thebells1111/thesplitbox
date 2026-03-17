@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  export let remoteServer;
+  import { remoteServer } from "$lib/state.svelte.js";
 
   let username = "";
   let password = "";
@@ -15,7 +15,7 @@
   async function handleLogin() {
     errorMessage = "";
     try {
-      const response = await fetch(`${remoteServer}/auth/login`, {
+      const response = await fetch(`${remoteServer}/admin/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -40,7 +40,7 @@
   async function handleSetup() {
     errorMessage = "";
     try {
-      const response = await fetch(`${remoteServer}/auth/setup`, {
+      const response = await fetch(`${remoteServer}/admin/auth/setup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newUsername, newPassword }),
@@ -93,7 +93,7 @@
       <input
         type="password"
         bind:value={newPassword}
-        placeholder="New Password (min 8 chars)"
+        placeholder="New Password"
         required
       />
       <button type="submit">Initialize Account</button>
