@@ -6,7 +6,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors"; // Import the CORS package
 
 // import albyRoutes from "./routes/alby/albyRoutes.js";
-import splitBoxRouter from "./routes/splitbox/router.js";
+import payRouter from "./routes/pay/router.js";
+import authRouter from "./routes/auth/router.js";
+import adminRouter from "./routes/admin/router.js";
 import wellknownRoutes from "./routes/wellknown/wellknownRoutes.js";
 // import prismRoutes from "./routes/prism/router.js";
 
@@ -31,7 +33,7 @@ if (process.env.NODE_ENV === "development") {
       },
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
-    })
+    }),
   );
 
   app.use(express.static(path.join(process.cwd(), "/server/public")));
@@ -46,7 +48,7 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginResourcePolicy: false,
-  })
+  }),
 );
 
 let tempTokens = {};
@@ -56,8 +58,10 @@ let tempTokens = {};
 
 app.use("/.well-known", cors({ origin: "*" }), wellknownRoutes);
 
-app.use("/pay", splitBoxRouter);
-// app.use("/prism", prismRoutes);
+app.use("/pay", payRouter);
+
+app.use("/auth", authRouter);
+app.use("/admin", adminRouter); // Protected (User management)
 
 // Start the server
 app.listen(PORT, () => {

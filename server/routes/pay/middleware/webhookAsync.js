@@ -95,7 +95,7 @@ function webhookAsync(storeMetadata) {
               let block = getBlock(event, blockGuid);
 
               let account = await storeMetadata.fetchAccessToken(
-                parentAddress || "thesplitbox@getalby.com"
+                parentAddress || "thesplitbox@getalby.com",
               );
 
               //this adds an '@_' to each destination so it matches parsed RSS feeds
@@ -107,8 +107,8 @@ function webhookAsync(storeMetadata) {
                     Object.entries(obj).map(([key, value]) => [
                       key.startsWith("@_") ? key : `@_${key}`,
                       value,
-                    ])
-                  )
+                    ]),
+                  ),
                 );
 
               let feesDestinations = [];
@@ -129,7 +129,7 @@ function webhookAsync(storeMetadata) {
 
               splitsDestinations.forEach((split) => {
                 split.amount = Math.floor(
-                  (split["@_split"] / 100) * runningAmount
+                  (split["@_split"] / 100) * runningAmount,
                 );
               });
 
@@ -152,7 +152,7 @@ function webhookAsync(storeMetadata) {
             } else if (metadata) {
               let splits = await getSplits(metadata);
               let account = await storeMetadata.fetchAccessToken(
-                parentAddress || "thesplitbox@getalby.com"
+                parentAddress || "thesplitbox@getalby.com",
               );
               let completedPayments = await processPayments({
                 accessToken: account.albyAccessToken,

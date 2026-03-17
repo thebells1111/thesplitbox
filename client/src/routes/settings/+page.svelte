@@ -11,8 +11,8 @@
   let albyAccessToken = "";
   let tokenSaved = false;
   let approvedGuids = [""];
-  let invoiceRoute = `${remoteServer}/invoice?address=${user.address}`;
-  let webhookRoute = `${remoteServer}/webhook-sync`;
+  let invoiceRoute = `${remoteServer}/pay/invoice?address=${user.address}`;
+  let webhookRoute = `${remoteServer}/pay/webhook`;
 
   onMount(fetchSettings);
   async function fetchSettings() {
