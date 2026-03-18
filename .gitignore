@@ -3,3 +3,4 @@ node_modules
 server/public/*
 public/*
 credentials.json
+events
